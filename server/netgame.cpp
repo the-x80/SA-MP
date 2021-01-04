@@ -284,6 +284,7 @@ char *CNetGame::GetNextScriptFile()
 bool CNetGame::SetNextScriptFile(char *szFile)
 {
 	//char szCurGameModeConsoleVar[64];
+	
 	char szConfigFileName[64];
 	char *szTemp;
 	int  iConfigRepeatCount=0;
@@ -301,14 +302,26 @@ bool CNetGame::SetNextScriptFile(char *szFile)
 		szTemp = this->GetNextScriptFile();
 		if (szTemp == NULL) return false;
 
-		//logprintf("szTemp is %s\n",szTemp);
+#ifdef _DEBUG
+		logprintf("szTemp is %s\n",szTemp);
+#endif
 
 		sscanf(szTemp,"%s%d",szConfigFileName,&iConfigRepeatCount);
 
-		// set it and verify the file is readable
-		sprintf(szGameModeFile,"gamemodes/%s.amx",szConfigFileName);
+		//Set the extension to amx as default
+		char szGameModeFileExtension[8] = "amx";//Added more characters to the extension for future proofing.
 
-		//logprintf("Set szGameModeFile to %s\n",szGameModeFile);
+#ifdef WIN32
+		//Perform a check here to see if the gamemode could be loaded as a dll
+
+#endif
+
+		// set it and verify the file is readable
+		sprintf(szGameModeFile,"gamemodes/%s.%s",szConfigFileName, szGameModeFileExtension);
+
+#ifdef _DEBUG
+		logprintf("Set szGameModeFile to %s\n",szGameModeFile);
+#endif
 
 		if(!CanFileBeOpenedForReading(szGameModeFile)) {
 			return false;
@@ -387,7 +400,7 @@ void CNetGame::Init(bool bFirst = false)
 	
 	// Setup gamemode
 	if(!m_pGameMode) {
-		m_pGameMode = new CGameMode();
+		m_pGameMode = new CGameModeAMX();
 	}
 
 	if (!m_pVariable) m_pVariable = new CVariables;

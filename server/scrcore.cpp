@@ -226,6 +226,7 @@ char* GetScriptName(AMX* amx)
 	CFilterScripts* pFS = pNetGame->GetFilterScripts();
 	CGameMode* pGM = pNetGame->GetGameMode();
 
+	//TODO:Note this will have to change for DLL compatibility
 	if (pGM != NULL && pGM->GetGameModePointer() == amx)
 		return pGM->GetFileName();
 	if (pFS != NULL)

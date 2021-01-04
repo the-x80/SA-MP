@@ -18,9 +18,191 @@
 
 char szGameModeFileName[256];
  
+#pragma region CGameMode
+CGameMode::CGameMode() {
+
+}
+CGameMode::~CGameMode()
+{
+}
+bool CGameMode::Load(char* pFileName)
+{
+	return false;
+}
+void CGameMode::Unload()
+{
+}
+void CGameMode::Frame(float fElapsedTime)
+{
+}
+int CGameMode::CallPublic(char* szFuncName)
+{
+	return 0;
+}
+int CGameMode::OnPlayerConnect(cell playerid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerDisconnect(cell playerid, cell reason)
+{
+	return 0;
+}
+int CGameMode::OnPlayerSpawn(cell playerid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerDeath(cell playerid, cell killerid, cell reason)
+{
+	return 0;
+}
+int CGameMode::OnVehicleSpawn(cell vehicleid)
+{
+	return 0;
+}
+int CGameMode::OnVehicleDeath(cell vehicleid, cell killerid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerText(cell playerid, unsigned char* szText)
+{
+	return 0;
+}
+int CGameMode::OnPlayerCommandText(cell playerid, unsigned char* szCommandText)
+{
+	return 0;
+}
+int CGameMode::OnPlayerInfoChange(cell playerid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerRequestClass(cell playerid, cell classid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerRequestSpawn(cell playerid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerEnterVehicle(cell playerid, cell vehicleid, cell ispassenger)
+{
+	return 0;
+}
+int CGameMode::OnPlayerExitVehicle(cell playerid, cell vehicleid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerStateChange(cell playerid, cell newstate, cell oldstate)
+{
+	return 0;
+}
+int CGameMode::OnPlayerEnterCheckpoint(cell playerid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerLeaveCheckpoint(cell playerid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerEnterRaceCheckpoint(cell playerid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerLeaveRaceCheckpoint(cell playerid)
+{
+	return 0;
+}
+int CGameMode::OnRconCommand(char* szCommand)
+{
+	return 0;
+}
+int CGameMode::OnObjectMoved(cell objectid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerObjectMoved(cell playerid, cell objectid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerPickedUpPickup(cell playerid, cell pickupid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerExitedMenu(cell playerid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerSelectedMenuRow(cell playerid, cell row)
+{
+	return 0;
+}
+int CGameMode::OnVehicleRespray(cell playerid, cell vehicleid, cell color1, cell color2)
+{
+	return 0;
+}
+int CGameMode::OnVehicleMod(cell playerid, cell vehicleid, cell componentid)
+{
+	return 0;
+}
+int CGameMode::OnEnterExitModShop(cell playerid, cell enterexit, cell interiorid)
+{
+	return 0;
+}
+int CGameMode::OnVehiclePaintjob(cell playerid, cell vehicleid, cell paintjobid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerInteriorChange(cell playerid, cell newid, cell oldid)
+{
+	return 0;
+}
+int CGameMode::OnPlayerKeyStateChange(cell playerid, cell newkeys, cell oldkeys)
+{
+	return 0;
+}
+int CGameMode::OnPlayerUpdate(cell playerid)
+{
+	return 0;
+}
+int CGameMode::OnIncomingConnection(cell playerid, char* ip, cell port)
+{
+	return 0;
+}
+int CGameMode::OnPlayerClickMap(cell playerid, float fX, float fY, float fZ)
+{
+	return 0;
+}
+int CGameMode::OnTrailerUpdate(cell playerid, cell vehicleid)
+{
+	return 0;
+}
+int CGameMode::OnRconLoginAttempt(char* szIP, char* szPassword, cell success)
+{
+	return 0;
+}
+void CGameMode::OnPlayerBeginTyping(cell playerid)
+{
+}
+void CGameMode::OnPlayerEndTyping(cell playerid)
+{
+}
+int CGameMode::OnPlayerStunt(cell playerid, cell vehicleid)
+{
+	return 0;
+}
+void CGameMode::OnClientCheckResponse(cell playerid, cell type, cell address, cell checksum)
+{
+}
+void CGameMode::OnVehicleSirenStateChange(cell playerid, cell vehicleid, cell newstate)
+{
+}
+void CGameMode::OnVehicleDamageStatusUpdate(cell vehicleid, cell playerid)
+{
+}
+#pragma endregion
+#pragma region CGameModeAMX
 //----------------------------------------------------------------------------------
 
-CGameMode::CGameMode()
+CGameModeAMX::CGameModeAMX()
 {
 	m_bInitialised = false;
 	m_bSleeping = false;
@@ -29,7 +211,7 @@ CGameMode::CGameMode()
 
 //----------------------------------------------------------------------------------
 
-CGameMode::~CGameMode()
+CGameModeAMX::~CGameModeAMX()
 {
 	Unload();
 	//SAFE_DELETE(m_pScriptTimers);
@@ -42,7 +224,7 @@ CGameMode::~CGameMode()
 
 //----------------------------------------------------------------------------------
 void PrintMissingNatives(AMX* amx, const char* szScriptName);
-bool CGameMode::Load(char* pFileName)
+bool CGameModeAMX::Load(char* pFileName)
 {
 	if (m_bInitialised)
 		Unload();
@@ -102,7 +284,7 @@ bool CGameMode::Load(char* pFileName)
 
 //----------------------------------------------------------------------------------
 
-void CGameMode::Unload()
+void CGameModeAMX::Unload()
 {
 	// Execute OnGameModeExit callback, if it exists!
 	int tmp;
@@ -131,7 +313,7 @@ void CGameMode::Unload()
 
 //----------------------------------------------------------------------------------
 
-void CGameMode::Frame(float fElapsedTime)
+void CGameModeAMX::Frame(float fElapsedTime)
 {
 	if (!m_bInitialised)
 		return;
@@ -165,7 +347,7 @@ void CGameMode::Frame(float fElapsedTime)
 
 //----------------------------------------------------------------------------------
 
-int CGameMode::CallPublic(char* szFuncName)
+int CGameModeAMX::CallPublic(char* szFuncName)
 {
 	CHECK_INIT();
 
@@ -180,7 +362,7 @@ int CGameMode::CallPublic(char* szFuncName)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerConnect(playerid);
-int CGameMode::OnPlayerConnect(cell playerid)
+int CGameModeAMX::OnPlayerConnect(cell playerid)
 {
 	CHECK_INIT();
 
@@ -198,7 +380,7 @@ int CGameMode::OnPlayerConnect(cell playerid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerDisconnect(playerid, reason);
-int CGameMode::OnPlayerDisconnect(cell playerid, cell reason)
+int CGameModeAMX::OnPlayerDisconnect(cell playerid, cell reason)
 {
 	//CHECK_INIT();
 
@@ -217,7 +399,7 @@ int CGameMode::OnPlayerDisconnect(cell playerid, cell reason)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerSpawn(playerid);
-int CGameMode::OnPlayerSpawn(cell playerid)
+int CGameModeAMX::OnPlayerSpawn(cell playerid)
 {
 	CHECK_INIT();
 
@@ -235,7 +417,7 @@ int CGameMode::OnPlayerSpawn(cell playerid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerDeath(playerid, killerid, reason);
-int CGameMode::OnPlayerDeath(cell playerid, cell killerid, cell reason)
+int CGameModeAMX::OnPlayerDeath(cell playerid, cell killerid, cell reason)
 {
 	CHECK_INIT();
 
@@ -255,7 +437,7 @@ int CGameMode::OnPlayerDeath(cell playerid, cell killerid, cell reason)
 //----------------------------------------------------------------------------------
 
 // forward OnVehicleSpawn(vehicleid);
-int CGameMode::OnVehicleSpawn(cell vehicleid)
+int CGameModeAMX::OnVehicleSpawn(cell vehicleid)
 {
 	CHECK_INIT();
 
@@ -273,7 +455,7 @@ int CGameMode::OnVehicleSpawn(cell vehicleid)
 //----------------------------------------------------------------------------------
 
 // forward OnVehicleDeath(vehicleid, killerid);
-int CGameMode::OnVehicleDeath(cell vehicleid, cell killerid)
+int CGameModeAMX::OnVehicleDeath(cell vehicleid, cell killerid)
 {
 	CHECK_INIT();
 
@@ -292,7 +474,7 @@ int CGameMode::OnVehicleDeath(cell vehicleid, cell killerid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerText(playerid, text[]);
-int CGameMode::OnPlayerText(cell playerid, unsigned char * szText)
+int CGameModeAMX::OnPlayerText(cell playerid, unsigned char * szText)
 {
 	CHECK_INIT();
 
@@ -320,7 +502,7 @@ int CGameMode::OnPlayerText(cell playerid, unsigned char * szText)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerCommandText(playerid, cmdtext[]);
-int CGameMode::OnPlayerCommandText(cell playerid, unsigned char * szCommandText)
+int CGameModeAMX::OnPlayerCommandText(cell playerid, unsigned char * szCommandText)
 {
 	CHECK_INIT();
 
@@ -346,7 +528,7 @@ int CGameMode::OnPlayerCommandText(cell playerid, unsigned char * szCommandText)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerInfoChange(playerid);
-int CGameMode::OnPlayerInfoChange(cell playerid)
+int CGameModeAMX::OnPlayerInfoChange(cell playerid)
 {
 	CHECK_INIT();
 
@@ -364,7 +546,7 @@ int CGameMode::OnPlayerInfoChange(cell playerid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerRequestClass(playerid, classid);
-int CGameMode::OnPlayerRequestClass(cell playerid, cell classid)
+int CGameModeAMX::OnPlayerRequestClass(cell playerid, cell classid)
 {
 	CHECK_INIT();
 
@@ -386,7 +568,7 @@ int CGameMode::OnPlayerRequestClass(cell playerid, cell classid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerRequestSpawn(playerid);
-int CGameMode::OnPlayerRequestSpawn(cell playerid)
+int CGameModeAMX::OnPlayerRequestSpawn(cell playerid)
 {
 	CHECK_INIT();
 
@@ -407,7 +589,7 @@ int CGameMode::OnPlayerRequestSpawn(cell playerid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);
-int CGameMode::OnPlayerEnterVehicle(cell playerid, cell vehicleid, cell ispassenger)
+int CGameModeAMX::OnPlayerEnterVehicle(cell playerid, cell vehicleid, cell ispassenger)
 {
 	CHECK_INIT();
 
@@ -430,7 +612,7 @@ int CGameMode::OnPlayerEnterVehicle(cell playerid, cell vehicleid, cell ispassen
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerExitVehicle(playerid, vehicleid);
-int CGameMode::OnPlayerExitVehicle(cell playerid, cell vehicleid)
+int CGameModeAMX::OnPlayerExitVehicle(cell playerid, cell vehicleid)
 {
 	CHECK_INIT();
 
@@ -452,7 +634,7 @@ int CGameMode::OnPlayerExitVehicle(cell playerid, cell vehicleid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerStateChange(playerid, newstate, oldstate);
-int CGameMode::OnPlayerStateChange(cell playerid, cell newstate, cell oldstate)
+int CGameModeAMX::OnPlayerStateChange(cell playerid, cell newstate, cell oldstate)
 {
 	CHECK_INIT();
 
@@ -475,7 +657,7 @@ int CGameMode::OnPlayerStateChange(cell playerid, cell newstate, cell oldstate)
 //----------------------------------------------------------------------------------
 // forward OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
 
-int CGameMode::OnPlayerInteriorChange(cell playerid, cell newid, cell oldid)
+int CGameModeAMX::OnPlayerInteriorChange(cell playerid, cell newid, cell oldid)
 {
 	CHECK_INIT();
 
@@ -498,7 +680,7 @@ int CGameMode::OnPlayerInteriorChange(cell playerid, cell newid, cell oldid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerEnterCheckpoint(playerid);
-int CGameMode::OnPlayerEnterCheckpoint(cell playerid)
+int CGameModeAMX::OnPlayerEnterCheckpoint(cell playerid)
 {
 	CHECK_INIT();
 
@@ -519,7 +701,7 @@ int CGameMode::OnPlayerEnterCheckpoint(cell playerid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerLeaveCheckpoint(playerid);
-int CGameMode::OnPlayerLeaveCheckpoint(cell playerid)
+int CGameModeAMX::OnPlayerLeaveCheckpoint(cell playerid)
 {
 	CHECK_INIT();
 
@@ -537,7 +719,7 @@ int CGameMode::OnPlayerLeaveCheckpoint(cell playerid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerEnterRaceCheckpoint(playerid);
-int CGameMode::OnPlayerEnterRaceCheckpoint(cell playerid)
+int CGameModeAMX::OnPlayerEnterRaceCheckpoint(cell playerid)
 {
 	CHECK_INIT();
 
@@ -555,7 +737,7 @@ int CGameMode::OnPlayerEnterRaceCheckpoint(cell playerid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerLeaveRaceCheckpoint(playerid);
-int CGameMode::OnPlayerLeaveRaceCheckpoint(cell playerid)
+int CGameModeAMX::OnPlayerLeaveRaceCheckpoint(cell playerid)
 {
 	CHECK_INIT();
 
@@ -573,7 +755,7 @@ int CGameMode::OnPlayerLeaveRaceCheckpoint(cell playerid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerKeyStateChange(playerid,newkeys,oldkeys);
-int CGameMode::OnPlayerKeyStateChange(cell playerid, cell newkeys, cell oldkeys)
+int CGameModeAMX::OnPlayerKeyStateChange(cell playerid, cell newkeys, cell oldkeys)
 {
 	int idx;
 	cell ret = 0;
@@ -591,7 +773,7 @@ int CGameMode::OnPlayerKeyStateChange(cell playerid, cell newkeys, cell oldkeys)
 //----------------------------------------------------------------------------------
 
 // forward OnRconCommand(cmd[]);
-int CGameMode::OnRconCommand(char* szCommand)
+int CGameModeAMX::OnRconCommand(char* szCommand)
 {
 	CHECK_INIT();
 
@@ -613,7 +795,7 @@ int CGameMode::OnRconCommand(char* szCommand)
 //----------------------------------------------------------------------------------
 
 // forward OnObjectMoved(objectid);
-int CGameMode::OnObjectMoved(cell objectid)
+int CGameModeAMX::OnObjectMoved(cell objectid)
 {
 	CHECK_INIT();
 
@@ -632,7 +814,7 @@ int CGameMode::OnObjectMoved(cell objectid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerObjectMoved(playerid, objectid);
-int CGameMode::OnPlayerObjectMoved(cell playerid, cell objectid)
+int CGameModeAMX::OnPlayerObjectMoved(cell playerid, cell objectid)
 {
 	CHECK_INIT();
 
@@ -652,7 +834,7 @@ int CGameMode::OnPlayerObjectMoved(cell playerid, cell objectid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerPickedUpPickup(playerid, pickupid);
-int CGameMode::OnPlayerPickedUpPickup(cell playerid, cell pickupid)
+int CGameModeAMX::OnPlayerPickedUpPickup(cell playerid, cell pickupid)
 {
 	CHECK_INIT();
 
@@ -671,7 +853,7 @@ int CGameMode::OnPlayerPickedUpPickup(cell playerid, cell pickupid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerExitedMenu(playerid);
-int CGameMode::OnPlayerExitedMenu(cell playerid)
+int CGameModeAMX::OnPlayerExitedMenu(cell playerid)
 {
 	CHECK_INIT();
 
@@ -689,7 +871,7 @@ int CGameMode::OnPlayerExitedMenu(cell playerid)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerSelectedMenuRow(playerid, row);
-int CGameMode::OnPlayerSelectedMenuRow(cell playerid, cell row)
+int CGameModeAMX::OnPlayerSelectedMenuRow(cell playerid, cell row)
 {
 	CHECK_INIT();
 
@@ -708,7 +890,7 @@ int CGameMode::OnPlayerSelectedMenuRow(cell playerid, cell row)
 //----------------------------------------------------------------------------------
 
 // forward OnVehicleRespray(playerid, vehicleid, color1, color2);
-int CGameMode::OnVehicleRespray(cell playerid, cell vehicleid, cell color1, cell color2)
+int CGameModeAMX::OnVehicleRespray(cell playerid, cell vehicleid, cell color1, cell color2)
 {
 	CHECK_INIT();
 	int idx;
@@ -728,7 +910,7 @@ int CGameMode::OnVehicleRespray(cell playerid, cell vehicleid, cell color1, cell
 //----------------------------------------------------------------------------------
 
 // forward OnVehicleMod(playerid, vehicleid, componentid);
-int CGameMode::OnVehicleMod(cell playerid, cell vehicleid, cell componentid)
+int CGameModeAMX::OnVehicleMod(cell playerid, cell vehicleid, cell componentid)
 {
 	CHECK_INIT();
 	int idx;
@@ -745,7 +927,7 @@ int CGameMode::OnVehicleMod(cell playerid, cell vehicleid, cell componentid)
 }
 
 // forward OnEnterExitModShop(playerid, enterexit, interiorid);
-int CGameMode::OnEnterExitModShop(cell playerid, cell enterexit, cell interiorid)
+int CGameModeAMX::OnEnterExitModShop(cell playerid, cell enterexit, cell interiorid)
 {
 	CHECK_INIT();
 	int idx;
@@ -762,7 +944,7 @@ int CGameMode::OnEnterExitModShop(cell playerid, cell enterexit, cell interiorid
 }
 
 // forward OnVehiclePaintjob(playerid, vehicleid, paintjobid);
-int CGameMode::OnVehiclePaintjob(cell playerid, cell vehicleid, cell paintjobid)
+int CGameModeAMX::OnVehiclePaintjob(cell playerid, cell vehicleid, cell paintjobid)
 {
 	CHECK_INIT();
 	int idx;
@@ -781,7 +963,7 @@ int CGameMode::OnVehiclePaintjob(cell playerid, cell vehicleid, cell paintjobid)
 //----------------------------------------------------------------------------------
 // forward OnPlayerUpdate(playerid)
 
-int CGameMode::OnPlayerUpdate(cell playerid)
+int CGameModeAMX::OnPlayerUpdate(cell playerid)
 {
 	CHECK_INIT();
 	int idx;
@@ -797,7 +979,7 @@ int CGameMode::OnPlayerUpdate(cell playerid)
 
 //----------------------------------------------------------------------------------
 
-int CGameMode::OnIncomingConnection(cell playerid, char* ip, cell port)
+int CGameModeAMX::OnIncomingConnection(cell playerid, char* ip, cell port)
 {
 	CHECK_INIT();
 	int idx = 0;
@@ -814,7 +996,7 @@ int CGameMode::OnIncomingConnection(cell playerid, char* ip, cell port)
 	return (int)ret;
 }
 
-int CGameMode::OnPlayerClickMap(cell playerid, float fX, float fY, float fZ)
+int CGameModeAMX::OnPlayerClickMap(cell playerid, float fX, float fY, float fZ)
 {
 	CHECK_INIT();
 
@@ -831,7 +1013,7 @@ int CGameMode::OnPlayerClickMap(cell playerid, float fX, float fY, float fZ)
 	return (int)ret;
 }
 
-int CGameMode::OnTrailerUpdate(cell playerid, cell vehicleid)
+int CGameModeAMX::OnTrailerUpdate(cell playerid, cell vehicleid)
 {
 	CHECK_INIT();
 
@@ -846,7 +1028,7 @@ int CGameMode::OnTrailerUpdate(cell playerid, cell vehicleid)
 	return (int)ret;
 }
 
-int CGameMode::OnRconLoginAttempt(char* szIP, char* szPassword, cell success)
+int CGameModeAMX::OnRconLoginAttempt(char* szIP, char* szPassword, cell success)
 {
 	CHECK_INIT();
 	int idx = 0;
@@ -864,7 +1046,7 @@ int CGameMode::OnRconLoginAttempt(char* szIP, char* szPassword, cell success)
 	return (int)ret;
 }
 
-void CGameMode::OnPlayerBeginTyping(cell playerid)
+void CGameModeAMX::OnPlayerBeginTyping(cell playerid)
 {
 	if (!m_bInitialised)
 		return;
@@ -877,7 +1059,7 @@ void CGameMode::OnPlayerBeginTyping(cell playerid)
 	}
 }
 
-void CGameMode::OnPlayerEndTyping(cell playerid)
+void CGameModeAMX::OnPlayerEndTyping(cell playerid)
 {
 	if (!m_bInitialised)
 		return;
@@ -890,7 +1072,7 @@ void CGameMode::OnPlayerEndTyping(cell playerid)
 	}
 }
 
-int CGameMode::OnPlayerStunt(cell playerid, cell vehicleid)
+int CGameModeAMX::OnPlayerStunt(cell playerid, cell vehicleid)
 {
 	CHECK_INIT();
 	int idx = 0;
@@ -903,7 +1085,7 @@ int CGameMode::OnPlayerStunt(cell playerid, cell vehicleid)
 	return 1;
 }
 
-void CGameMode::OnClientCheckResponse(cell playerid, cell type, cell address, cell checksum)
+void CGameModeAMX::OnClientCheckResponse(cell playerid, cell type, cell address, cell checksum)
 {
 	int idx = 0;
 
@@ -920,7 +1102,7 @@ void CGameMode::OnClientCheckResponse(cell playerid, cell type, cell address, ce
 	}
 }
 
-void CGameMode::OnVehicleSirenStateChange(cell playerid, cell vehicleid, cell newstate)
+void CGameModeAMX::OnVehicleSirenStateChange(cell playerid, cell vehicleid, cell newstate)
 {
 	int idx = 0;
 
@@ -935,7 +1117,7 @@ void CGameMode::OnVehicleSirenStateChange(cell playerid, cell vehicleid, cell ne
 	}
 }
 
-void CGameMode::OnVehicleDamageStatusUpdate(cell vehicleid, cell playerid)
+void CGameModeAMX::OnVehicleDamageStatusUpdate(cell vehicleid, cell playerid)
 {
 	int idx = 0;
 
@@ -948,3 +1130,262 @@ void CGameMode::OnVehicleDamageStatusUpdate(cell vehicleid, cell playerid)
 		amx_Exec(&m_amx, NULL, idx);
 	}
 }
+#pragma endregion
+#pragma region CGameModeDLL
+#ifdef WIN32
+
+
+CGameModeDLL::CGameModeDLL()
+{
+	this->m_hDLL = NULL;
+	this->m_bInitialised = false;
+	this->m_bSleeping = false;
+	this->m_fSleepTime = 0.0f;
+}
+
+CGameModeDLL::~CGameModeDLL()
+{
+}
+
+bool CGameModeDLL::Load(char* pFileName)
+{
+#ifdef _DEBUG
+	//Placed in a DEBUG block since this should never happen durring normal operation
+	if (pFileName == nullptr) {
+		throw "Null Reference Exception";
+	}
+#endif
+
+
+	if (m_hDLL != NULL) {
+		FreeLibrary((HMODULE)m_hDLL);
+	}
+
+
+
+
+
+	m_hDLL = (HANDLE)LoadLibraryEx(pFileName, NULL, NULL);//Using LoadLibraryEx instead of LoadLibrary for future proofing of the code
+	if (m_hDLL == NULL) {//Obviously something went wrong while loading the DLL
+#ifdef _DEBUG
+		logprintf("There was an error loading the GameMode. GetLastError returned %d", GetLastError());
+#endif
+		switch (GetLastError()) {
+		default:
+#ifdef _DEBUG
+			logprintf("Undocumented error code.");
+#endif
+			break;
+		}
+	}
+
+
+	return false;
+}
+
+void CGameModeDLL::Unload()
+{
+}
+
+int CGameModeDLL::OnPlayerConnect(int playerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerDisconnect(int playerid, int reason)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerSpawn(int playerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerDeath(int playerid, int killerid, int reason)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnVehicleSpawn(int vehicleid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnVehicleDeath(int vehicleid, int killerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerText(int playerid, unsigned char* szText)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerCommandText(int playerid, unsigned char* szCommandText)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerInfoChange(int playerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerRequestClass(int playerid, int classid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerRequestSpawn(int playerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerEnterVehicle(int playerid, int vehicleid, int ispassenger)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerExitVehicle(int playerid, int vehicleid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerStateChange(int playerid, int newstate, int oldstate)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerEnterCheckpoint(int playerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerLeaveCheckpoint(int playerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerEnterRaceCheckpoint(int playerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerLeaveRaceCheckpoint(int playerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnRconCommand(char* szCommand)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnObjectMoved(int objectid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerObjectMoved(int playerid, int objectid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerPickedUpPickup(int playerid, int pickupid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerExitedMenu(int playerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerSelectedMenuRow(int playerid, int row)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnVehicleRespray(int playerid, int vehicleid, int color1, int color2)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnVehicleMod(int playerid, int vehicleid, int componentid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnEnterExitModShop(int playerid, int enterexit, int interiorid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnVehiclePaintjob(int playerid, int vehicleid, int paintjobid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerInteriorChange(int playerid, int newid, int oldid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerKeyStateChange(int playerid, int newkeys, int oldkeys)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerUpdate(int playerid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnIncomingConnection(int playerid, char* ip, int port)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnPlayerClickMap(int playerid, float fX, float fY, float fZ)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnTrailerUpdate(int playerid, int vehicleid)
+{
+	return 0;
+}
+
+int CGameModeDLL::OnRconLoginAttempt(char* szIP, char* szPassword, int success)
+{
+	return 0;
+}
+
+void CGameModeDLL::OnPlayerBeginTyping(int playerid)
+{
+}
+
+void CGameModeDLL::OnPlayerEndTyping(int playerid)
+{
+}
+
+int CGameModeDLL::OnPlayerStunt(int playerid, int vehicleid)
+{
+	return 0;
+}
+
+void CGameModeDLL::OnClientCheckResponse(int playerid, int type, int address, int checksum)
+{
+}
+
+void CGameModeDLL::OnVehicleSirenStateChange(int playerid, int vehicleid, int newstate)
+{
+}
+
+void CGameModeDLL::OnVehicleDamageStatusUpdate(int vehicleid, int playerid)
+{
+}
+
+#endif
+#pragma endregion

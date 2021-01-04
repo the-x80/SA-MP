@@ -4729,7 +4729,8 @@ static cell n_CallRemoteFunction(AMX *amx, cell *params)
 			CGameMode* pGameMode = pNetGame->GetGameMode();
 			if (pGameMode != NULL && pGameMode->IsInitialised())
 			{
-				amxFile = pGameMode->GetGameModePointer();
+				// TODO:Note this might have to change for DLL compatibility
+				amxFile = (AMX*)pGameMode->GetGameModePointer();
 			}
 			else
 			{
