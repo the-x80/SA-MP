@@ -20,13 +20,31 @@ char szGameModeFileName[256];
  
 #pragma region CGameMode
 CGameMode::CGameMode() {
-
+	this->m_bInitialised = false;
+	this->m_bSleeping = false;
+	this->m_fSleepTime = 0.0f;
+	this->m_gtType = GAMEMODE_TYPE::NONE;
 }
 CGameMode::~CGameMode()
 {
 }
+CGameMode* CGameMode::Create(char* pFileName)
+{
+	//The check to assign a proper GameMode object is to check the character after the last '.' character.
+	//For example if the pFileName ends with .amx then return CGameModeAMX
+	//On the other hand if it ends with .dll then return CGameModeDLL
+	//And so on if there are multiple types
+#ifdef WIN32
+	if (strcmp(PathFindExtension(pFileName), ".dll") == 0) {
+		return new CGameModeDLL();
+	}
+#endif
+
+	return new CGameModeAMX();
+}
 bool CGameMode::Load(char* pFileName)
 {
+	// TODO: Perform check if the current gamemode filename is a DLL or AMX file
 	return false;
 }
 void CGameMode::Unload()
@@ -224,6 +242,7 @@ CGameModeAMX::~CGameModeAMX()
 
 //----------------------------------------------------------------------------------
 void PrintMissingNatives(AMX* amx, const char* szScriptName);
+
 bool CGameModeAMX::Load(char* pFileName)
 {
 	if (m_bInitialised)
@@ -261,7 +280,7 @@ bool CGameModeAMX::Load(char* pFileName)
 
 	// Execute OnGameModeInit callback, if it exists!
 	int tmp;
-	if (!amx_FindPublic(&m_amx, "OnGameModeInit", &tmp))
+	if (!amx_FindPublic(&m_amx, "OnGameModeInit", &tmp)) 
 		amx_Exec(&m_amx, (cell*)&tmp, tmp);
 	pNetGame->GetFilterScripts()->OnGameModeInit();
 	// ----------------------------------------------
@@ -281,7 +300,6 @@ bool CGameModeAMX::Load(char* pFileName)
 
 	return true;
 }
-
 //----------------------------------------------------------------------------------
 
 void CGameModeAMX::Unload()
@@ -1147,6 +1165,7 @@ CGameModeDLL::~CGameModeDLL()
 {
 }
 
+
 bool CGameModeDLL::Load(char* pFileName)
 {
 #ifdef _DEBUG
@@ -1167,9 +1186,9 @@ bool CGameModeDLL::Load(char* pFileName)
 
 	m_hDLL = (HANDLE)LoadLibraryEx(pFileName, NULL, NULL);//Using LoadLibraryEx instead of LoadLibrary for future proofing of the code
 	if (m_hDLL == NULL) {//Obviously something went wrong while loading the DLL
-#ifdef _DEBUG
 		logprintf("There was an error loading the GameMode. GetLastError returned %d", GetLastError());
-#endif
+
+
 		switch (GetLastError()) {
 		default:
 #ifdef _DEBUG
@@ -1179,6 +1198,21 @@ bool CGameModeDLL::Load(char* pFileName)
 		}
 	}
 
+
+	//Since this is a DLL there must be a check to se how compatible is the code to the SAMP server version
+	//There could be mayor checks.
+	//Since you are designing this from the ground up you could make a custom method of performing checks
+	//But for now call the normal Plugin methods to determine what is needed
+
+
+
+
+
+
+	pOnGameModeInit pOGI = (pOnGameModeInit)GetProcAddress((HMODULE)m_hDLL, "OnGameModeInit");
+	if (pOGI != NULL) {
+		pOGI();
+	}
 
 	return false;
 }

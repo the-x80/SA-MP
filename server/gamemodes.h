@@ -18,12 +18,41 @@ extern char szGameModeFileName[256];
 
 //----------------------------------------------------------------------------------
 
+
+
+/* 
+	GOAL:
+	Create a scalable gamemode code.
+	Allow gamemodes to be switched on the fly.
+	
+*/
+
+
+
+
+//Mostly used for a switch statement inside the CGameMode::Load method. Designed like this for scalability
+enum class GAMEMODE_TYPE{
+	NONE,
+	AMX,
+	DLL
+};
+
 class CGameMode
 {
 private:
+	// NOTE: Porbbably its best to move all of the GameMode related variables inside here.
+	// This allows for quick gamemode changes witouth loosing any data.
+	// You could argue well its set by the GameMode but what if you switch between two gamemodes constantly.
+	// Its best not to run the GameModeInit on every switch
+	// Best to implement a OnGameModePause/OnGameModeResume callback for that purpouse
 	bool m_bInitialised;
 	bool m_bSleeping;
 	float m_fSleepTime;
+
+	/// <summary>
+	/// Holds the data of the "Type" of gamemode. Basically saying what file type is used.
+	/// </summary>
+	GAMEMODE_TYPE m_gtType;
 
 	//CScriptTimers* m_pScriptTimers;
 public:
@@ -33,6 +62,19 @@ public:
 	char* GetFileName() { return &szGameModeFileName[0]; };
 	//CScriptTimers* GetTimers() { return m_pScriptTimers; };
 	void* GetGameModePointer() { return nullptr; };
+
+	/// <summary>
+	///			Loads a gamemode from disk and returns the pointer of the CGameMode object.
+	/// </summary>
+	/// 
+	/// <param name="pFileName">A c string containing the file name of the gamemode.</param>
+	/// 
+	/// <returns>
+	///			A pointer of a object derrived from CGameMode based on the file type beeing loaded.
+	///			If an error occures NULL is returned.
+	/// </returns>
+	static CGameMode* Create(char* pFileName);// TODO:Make this function. Currently does nothing.
+
 
 	virtual bool Load(char* pFileName);
 	virtual void Unload();
@@ -85,9 +127,13 @@ public:
 	virtual void OnVehicleSirenStateChange(cell playerid, cell vehicleid, cell newstate);
 	virtual void OnVehicleDamageStatusUpdate(cell vehicleid, cell playerid);
 
-private:
-	//Helper methods go here.
 
+	//Extended GameMode callbacks
+
+
+protected:
+	//Helper methods go here.
+	
 };
 
 class CGameModeAMX : public CGameMode{
@@ -161,6 +207,11 @@ public:
 class CGameModeDLL : public CGameMode{
 private:
 	HANDLE m_hDLL;
+
+
+
+	typedef bool (*pOnGameModeInit)();
+	typedef bool (*pMain)();
 
 	bool m_bInitialised;
 	bool m_bSleeping;

@@ -302,19 +302,30 @@ bool CNetGame::SetNextScriptFile(char *szFile)
 		szTemp = this->GetNextScriptFile();
 		if (szTemp == NULL) return false;
 
-#ifdef _DEBUG
-		logprintf("szTemp is %s\n",szTemp);
-#endif
-
+		
 		sscanf(szTemp,"%s%d",szConfigFileName,&iConfigRepeatCount);
 
 		//Set the extension to amx as default
 		char szGameModeFileExtension[8] = "amx";//Added more characters to the extension for future proofing.
 
-#ifdef WIN32
-		//Perform a check here to see if the gamemode could be loaded as a dll
+#ifdef WIN32//Note this is horrible to look at. Will redesign this code a bit in the future to allow for scalability
+		//Since DLLs are Windows specific, wrap the code in the WIN32 preprocessor macro.
+		WIN32_FIND_DATA wfdFindData;
+		szTemp = new char[256];
+		sprintf_s(szTemp, 256, "gamemodes\\%s.*", szConfigFileName);
+		HANDLE hFileFind = FindFirstFile(szTemp, &wfdFindData);//Hardcoded directory for now.
+		if (hFileFind != INVALID_HANDLE_VALUE) {
 
+			sprintf_s(szTemp, 256, "gamemodes\\%s", wfdFindData.cFileName);
+			char* szExt = PathFindExtensionA(szTemp);
+
+			strcpy_s(szGameModeFileExtension, szExt+1);
+
+			FindClose(hFileFind);
+			delete[] szTemp;
+		}
 #endif
+
 
 		// set it and verify the file is readable
 		sprintf(szGameModeFile,"gamemodes/%s.%s",szConfigFileName, szGameModeFileExtension);
@@ -399,8 +410,11 @@ void CNetGame::Init(bool bFirst = false)
 	}
 	
 	// Setup gamemode
+	// Now this needs to be redesigned a bit.
+	//Basically as far as I can see the m_pGamemode is not used untill it is loaded.
+	//The new CGameMode code should work normally if you shift it down to the load procedure.
 	if(!m_pGameMode) {
-		m_pGameMode = new CGameModeAMX();
+		m_pGameMode = CGameMode::Create(szGameModeFile);//Filename is required to decide what Type of gamemode should load
 	}
 
 	if (!m_pVariable) m_pVariable = new CVariables;
